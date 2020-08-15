@@ -1,7 +1,81 @@
-<html>
-    <head>
-        <meta charset="utf-8">
-        <title>Chuenko - Task 7</title>
-        <script src="task7.js"></script>
-    </head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>H7</title>
+</head>
+<body>
+
+<!-- 1-->
+<script>
+    let sumResult = sumMultiple(2)(4);
+    alert(sumResult);
+
+    function sumMultiple(a) {
+        return function(b) {
+            return a + b;
+        };
+    }
+</script>
+
+<!-- 2 -->
+<script>
+    function makeCounter() {
+        let currentCount = 1;
+
+        return function() {
+            return currentCount++;
+        };
+    }
+
+    let counter1 = makeCounter();
+    let counter2 = makeCounter();
+
+    alert(counter1());
+    alert(counter1());
+    alert(counter2());
+    alert(counter2());
+    alert(counter2());
+    alert(counter1());
+</script>
+
+<!-- 3 -->
+<script>
+    let numbers = sumInput();
+    alert(numbers);
+
+    function sumInput() {
+        let numbers = new Array();
+
+        function callPrompt() {
+            let number = prompt('Type number', 0);
+
+            // If prompt not canceled.
+            if (number != null) {
+
+                // If prompt result is numeric string.
+                if (isNumeric(number)) {
+
+                    // Add prompt result into result array.
+                    numbers.push(number);
+
+                    // Call function callPrompt recursivly.
+                    callPrompt();
+                }
+            }
+        }
+
+        // Call prompt first time.
+        callPrompt();
+
+        return numbers;
+    }
+
+    function isNumeric(n) {
+        return !isNaN(parseFloat(n)) && isFinite(n);
+    }
+</script>
+</body>
 </html>
