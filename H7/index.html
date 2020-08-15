@@ -43,38 +43,44 @@
 
 <!-- 3 -->
 <script>
-    let numbers = sumInput();
-    alert(numbers);
+    alert(sumInput());
 
     function sumInput() {
-        let numbers = new Array();
+        let numbers = [];
 
         function callPrompt() {
             let number = prompt('Type number', 0);
 
-            // If prompt not canceled.
-            if (number != null) {
+            // If prompt return result && prompt result is numeric string.
+            if (number != null && isNumeric(number)) {
 
-                // If prompt result is numeric string.
-                if (isNumeric(number)) {
+                // Add prompt result into result array.
+                numbers.push(number);
 
-                    // Add prompt result into result array.
-                    numbers.push(number);
-
-                    // Call function callPrompt recursivly.
-                    callPrompt();
-                }
+                // Call function callPrompt recursivly.
+                callPrompt();
             }
         }
 
-        // Call prompt first time.
+        // 1. Fill array.
         callPrompt();
 
-        return numbers;
+        // 2. Calculate sum.
+        return sum(numbers);
     }
 
     function isNumeric(n) {
         return !isNaN(parseFloat(n)) && isFinite(n);
+    }
+
+    function sum(numbersArray) {
+        let sumResult = 0;
+
+        numbersArray.forEach(function(item) {
+            sumResult = sumResult + parseInt(item);
+        });
+
+        return sumResult;
     }
 </script>
 </body>
