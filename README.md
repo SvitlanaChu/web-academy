@@ -1,1 +1,1 @@
-# web-academy
+# Web Academy Project
