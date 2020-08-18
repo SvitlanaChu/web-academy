@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>H7</title>
+</head>
+<body>
+
+<!-- 1-->
+<script>
+    let sumResult = sumMultiple(2)(4);
+    alert(sumResult);
+
+    function sumMultiple(a) {
+        return function(b) {
+            return a + b;
+        };
+    }
+</script>
+
+<!-- 2 -->
+<script>
+    function makeCounter() {
+        let currentCount = 1;
+
+        return function() {
+            return currentCount++;
+        };
+    }
+
+    let counter1 = makeCounter();
+    let counter2 = makeCounter();
+
+    alert(counter1());
+    alert(counter1());
+    alert(counter2());
+    alert(counter2());
+    alert(counter2());
+    alert(counter1());
+</script>
+
+<!-- 3 -->
+<script>
+    alert(sumInput());
+
+    function sumInput() {
+        let numbers = [];
+
+        function callPrompt() {
+            let number = prompt('Type number', 0);
+
+            // If prompt return result && prompt result is numeric string.
+            if (number != null && isNumeric(number)) {
+
+                // Add prompt result into result array.
+                numbers.push(number);
+
+                // Call function callPrompt recursivly.
+                callPrompt();
+            }
+        }
+
+        // 1. Fill array.
+        callPrompt();
+
+        // 2. Calculate sum.
+        return sum(numbers);
+    }
+
+    function isNumeric(n) {
+        return !isNaN(parseFloat(n)) && isFinite(n);
+    }
+
+    function sum(numbersArray) {
+        let sumResult = 0;
+
+        numbersArray.forEach(function(item) {
+            sumResult = sumResult + parseInt(item);
+        });
+
+        return sumResult;
+    }
+</script>
+</body>
+</html>
