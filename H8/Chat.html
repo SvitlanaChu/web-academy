@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>H8</title>
+</head>
+<body>
+    <div id="app"></div>
+
+    <script>
+        let chatData = [
+            {user: 'Alex', message: 'some text Alex 1', isMyMessage: false},
+            {user: 'Ivan', message: 'some text Ivan 1', isMyMessage: true},
+            {user: 'Ivan', message: 'some text Ivan 2', isMyMessage: true},
+            {user: 'Alex', message: 'some text Alex 2', isMyMessage: false},
+            {user: 'Ivan', message: 'some text Ivan 3', isMyMessage: true},
+        ];
+
+        let html = '<table><tbody>';
+
+        html += '<tr>'
+            html += '<td>Alex massages</td>'
+            html += '<td>Ivan massages</td>'
+        html += '</tr>'
+
+        chatData.forEach(function (row) {
+            let leftMessage  = row.isMyMessage === false ? row.message : '';
+            let rightMessage = row.isMyMessage === true ? row.message : '';
+
+            html += '<tr>'
+                html += '<td>'+ leftMessage +'</td>'
+                html += '<td>'+ rightMessage +'</td>'
+            html += '</tr>'
+        });
+
+        html += '</table></tbody>';
+
+        document.getElementById('app').innerHTML = html;
+    </script>
+</body>
+</html>
