@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>H11</title>
+</head>
+<body>
+
+<div>
+    <input type="text" value="" id="weather-city" onKeyUp="Weather.changeCity()" placeholder="Type city name"/>
+    <button type="button" id="weather-search" disabled onClick="Weather.search()">search</button>
+    <div id="weather-result"></div>
+</div>
+
+<!-- 1 -->
+<script>
+async function wait() {
+    await new Promise(resolve => setTimeout(resolve, 1000));
+
+    return 10;
+}
+
+function callWaitFunction() {
+    wait().then((result) => console.log(result + ' after 1 sec'));
+}
+
+callWaitFunction();
+</script>
+
+<!-- 2 -->
+<script>
+    // да, ведут себя одинаково
+</script>
+
+<!-- 3 -->
+<script>
+Weather = {
+    search: function () {
+        let weatherCity = document.getElementById('weather-city').value;
+
+        fetch(`https://community-open-weather-map.p.rapidapi.com/find?type=link%252C%20accurate&cnt=1&units=metric%252C%20metric&q=${weatherCity}`, {
+            "method": "GET",
+            "headers": {
+                "x-rapidapi-host": "community-open-weather-map.p.rapidapi.com",
+                "x-rapidapi-key": "216d4ab82emshcd7a30ddb8b36cfp17c45bjsnce7f45604acf"
+            }
+        })
+        .then(response => response.json())
+        .then((data) => {
+            let html = '';
+
+            if (data.list[0]) {
+                let weather = data.list[0];
+
+                html += 'City <b>' + weather.name + '</b> weather:<br/>';
+                html += '<br/><b>wind</b>: ' + weather.wind.speed;
+                html += '<br/><b>temp</b>: ' + weather.main.temp;
+                html += '<br/><b>feels like</b>: ' + weather.main.feels_like;
+                html += '<br/><b>description</b>: ' + weather.weather[0].description;
+            } else {
+                html = 'not found';
+            }
+
+            document.getElementById('weather-result').innerHTML = html;
+            document.getElementById('weather-search').setAttribute('disabled', 'disabled');
+            document.getElementById('weather-city').value = '';
+        })
+        .catch(err => {
+            alert(err);
+        });
+
+        document.getElementById('weather-city').value = '';
+    },
+
+    changeCity: function () {
+        document.getElementById('weather-search').removeAttribute('disabled');
+        document.getElementById('weather-result').innerText = '';
+    }
+};
+</script>
+
+</body>
+</html>
